@@ -13,7 +13,7 @@ class ChannelVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.revealViewController().rearViewRevealWidth = view.self.frame.size.width * 0.83
+        self.revealViewController().rearViewRevealWidth = view.self.frame.size.width - 60
         
     }
 
