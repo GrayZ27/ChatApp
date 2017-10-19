@@ -1,5 +1,5 @@
 //
-//  LoginVC.swift
+//  CreateAcctVC.swift
 //  ChatApp
 //
 //  Created by Gray Zhen on 10/19/17.
@@ -8,19 +8,16 @@
 
 import UIKit
 
-class LoginVC: UIViewController {
+class CreateAcctVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       
+        
     }
 
     @IBAction func closeBtnPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
     }
-
-    @IBAction func createAcctBtnPressed(_ sender: Any) {
-        performSegue(withIdentifier: TO_CREATE_ACCOUNT, sender: nil)
-    }
+    
 }

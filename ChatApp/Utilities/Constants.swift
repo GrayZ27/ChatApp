@@ -9,3 +9,6 @@
 import Foundation
 
 let TO_LOGIN = "toLoginView"
+let TO_CREATE_ACCOUNT = "toCreateAcctVC"
+
+let UNWIND_TO_CHANNEL = "unwindToChannelVC"
