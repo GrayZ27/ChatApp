@@ -391,7 +391,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAJ-8z-DPA">
                                         <rect key="frame" x="0.0" y="117" width="250" height="2"/>
@@ -415,6 +415,7 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                 <state key="normal" title="Generate background color"/>
                                 <connections>
+                                    <action selector="chooseBGColorBtnPressed:" destination="rBf-lX-Ecl" eventType="touchUpInside" id="cOQ-7B-gXJ"/>
                                     <action selector="createAcctBtnPressed:" destination="XRM-wj-Kev" eventType="touchUpInside" id="GD1-mW-RwU"/>
                                 </connections>
                             </button>
@@ -429,12 +430,16 @@
                                 <state key="normal" title="Create account">
                                     <color key="titleColor" red="0.96847915539999996" green="1" blue="0.99846337039999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="createAcctBtnPressed:" destination="rBf-lX-Ecl" eventType="touchUpInside" id="jEq-Tt-D4h"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZg-5n-g4u">
                                 <rect key="frame" x="148.5" y="426.5" width="78" height="26"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                 <state key="normal" title="Choose avatar"/>
                                 <connections>
+                                    <action selector="chooseAvatarBtnPressed:" destination="rBf-lX-Ecl" eventType="touchUpInside" id="Yir-mI-wF5"/>
                                     <action selector="createAcctBtnPressed:" destination="XRM-wj-Kev" eventType="touchUpInside" id="3ZI-Qy-qYB"/>
                                 </connections>
                             </button>
@@ -459,6 +464,10 @@
                         <viewLayoutGuide key="safeArea" id="nDA-bh-HT1"/>
                     </view>
                     <connections>
+                        <outlet property="emailTxt" destination="7uK-R0-LO6" id="MGx-Vb-OOx"/>
+                        <outlet property="passTxt" destination="dZH-DB-qDM" id="WiV-O0-ZNs"/>
+                        <outlet property="userImg" destination="lhI-LK-cJy" id="OVK-VU-vQi"/>
+                        <outlet property="usernameTxt" destination="JWW-34-HrM" id="pWL-eM-ZFh"/>
                         <segue destination="aoP-Pc-QkH" kind="unwind" identifier="unwindToChannelVC" unwindAction="prepareForUnwindWithSegue:" id="ifP-GP-gaQ"/>
                     </connections>
                 </viewController>
