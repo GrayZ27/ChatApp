@@ -22,12 +22,16 @@ let TO_CREATE_ACCOUNT = "toCreateAcctVC"
 let TO_AVATAR_CHOOSE = "toAvatarChoose"
 let UNWIND_TO_CHANNEL = "unwindToChannelVC"
 
-
 //user default
 let TOKEN_KEY = "token"
 let LOGGED_IN_KEY = "loggedIn"
 let USER_EMAIL = "userEmail"
 
-
 //Header
 let HEADER = ["Content-Type": "application/json; charset=utf-8"]
+
+//Colors
+let PLACEHOLDER_COLOR = #colorLiteral(red: 0.1984519475, green: 0.659694549, blue: 0.8852669373, alpha: 0.4)
+
+//Notification
+let NOTIF_USER_DATA_DID_CHANGE = Notification.Name("notifUserDataChanged")
