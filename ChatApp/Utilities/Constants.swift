@@ -19,7 +19,7 @@ let URL_ADDUSER = "\(BASE_URL)user/add"
 //segue
 let TO_LOGIN = "toLoginView"
 let TO_CREATE_ACCOUNT = "toCreateAcctVC"
-
+let TO_AVATAR_CHOOSE = "toAvatarChoose"
 let UNWIND_TO_CHANNEL = "unwindToChannelVC"
 
 

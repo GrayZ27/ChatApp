@@ -21,11 +21,18 @@ class CreateAcctVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if UserDataService.instance.avatarName != "" {
+            userImg.image = UIImage(named: UserDataService.instance.avatarName)
+            avatarName = UserDataService.instance.avatarName
+        }
         
     }
-
+    
     @IBAction func chooseAvatarBtnPressed(_ sender: Any) {
-        
+        performSegue(withIdentifier: TO_AVATAR_CHOOSE, sender: nil)
     }
     
     @IBAction func chooseBGColorBtnPressed(_ sender: Any) {
