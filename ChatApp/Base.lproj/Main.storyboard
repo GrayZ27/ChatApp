@@ -119,6 +119,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qma-mh-FAk">
                                 <rect key="frame" x="283" y="63" width="22" height="22"/>
                                 <state key="normal" image="addChannelButton"/>
+                                <connections>
+                                    <action selector="addChannelBtnPressed:" destination="Q3c-e1-nNm" eventType="touchUpInside" id="jva-e0-Wap"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menuProfileIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Srp-YA-Af1" customClass="circleImage" customModule="ChatApp" customModuleProvider="target">
                                 <rect key="frame" x="16" y="577" width="70" height="70"/>
