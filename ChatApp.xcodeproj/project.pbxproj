@@ -24,6 +24,8 @@
 		0657573E1F993ACB00F89D18 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0657573D1F993ACB00F89D18 /* LoginVC.swift */; };
 		065757401F995E8B00F89D18 /* CreateAcctVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0657573F1F995E8B00F89D18 /* CreateAcctVC.swift */; };
 		06D9D56A1FA0FC6F001A2C46 /* circleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9D5691FA0FC6F001A2C46 /* circleImage.swift */; };
+		06D9D56D1FA141E6001A2C46 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9D56B1FA141E5001A2C46 /* ProfileVC.swift */; };
+		06D9D56E1FA141E6001A2C46 /* ProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06D9D56C1FA141E6001A2C46 /* ProfileVC.xib */; };
 		4C9D34EC6FB8C43199F826CB /* Pods_ChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B133A7D9D15ABF282C97F3B1 /* Pods_ChatApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +51,8 @@
 		0657573D1F993ACB00F89D18 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0657573F1F995E8B00F89D18 /* CreateAcctVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAcctVC.swift; sourceTree = "<group>"; };
 		06D9D5691FA0FC6F001A2C46 /* circleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = circleImage.swift; sourceTree = "<group>"; };
+		06D9D56B1FA141E5001A2C46 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		06D9D56C1FA141E6001A2C46 /* ProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileVC.xib; sourceTree = "<group>"; };
 		1DA9DAC634D043E31FF923DC /* Pods-ChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.release.xcconfig"; sourceTree = "<group>"; };
 		B133A7D9D15ABF282C97F3B1 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B54FE7498515DD2158EDEAB6 /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 		060ACE6A1F8FDBD90009E5BF /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				06D9D56F1FA14234001A2C46 /* XibFiles */,
 				0612F1381F9AB08800CA973D /* Services */,
 				0657573A1F9920CE00F89D18 /* Utilities */,
 				060ACE831F8FF1CF0009E5BF /* Model */,
@@ -129,6 +134,7 @@
 				0657573D1F993ACB00F89D18 /* LoginVC.swift */,
 				0657573F1F995E8B00F89D18 /* CreateAcctVC.swift */,
 				062783431F9FE667000F7BDE /* AvatarPickerVC.swift */,
+				06D9D56B1FA141E5001A2C46 /* ProfileVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -166,6 +172,14 @@
 				0657573B1F99213300F89D18 /* Constants.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		06D9D56F1FA14234001A2C46 /* XibFiles */ = {
+			isa = PBXGroup;
+			children = (
+				06D9D56C1FA141E6001A2C46 /* ProfileVC.xib */,
+			);
+			path = XibFiles;
 			sourceTree = "<group>";
 		};
 		22B5DEC751B31D273A944517 /* Frameworks */ = {
@@ -239,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06D9D56E1FA141E6001A2C46 /* ProfileVC.xib in Resources */,
 				060ACE761F8FDBD90009E5BF /* LaunchScreen.storyboard in Resources */,
 				060ACE731F8FDBD90009E5BF /* Assets.xcassets in Resources */,
 				060ACE711F8FDBD90009E5BF /* Main.storyboard in Resources */,
@@ -300,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06D9D56D1FA141E6001A2C46 /* ProfileVC.swift in Sources */,
 				060ACE851F8FF1F60009E5BF /* ChatVC.swift in Sources */,
 				062783441F9FE667000F7BDE /* AvatarPickerVC.swift in Sources */,
 				061A97611F9D1130004720AA /* RoundedButton.swift in Sources */,
