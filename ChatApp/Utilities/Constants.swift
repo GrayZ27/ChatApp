@@ -15,6 +15,7 @@ let BASE_URL = "https://chatappgzv1.herokuapp.com/v1/"
 let URL_REGISTER = "\(BASE_URL)account/register"
 let URL_LOGIN = "\(BASE_URL)account/login"
 let URL_ADDUSER = "\(BASE_URL)user/add"
+let URL_USER_BY_EMAIL = "\(BASE_URL)user/byEmail/"
 
 //segue
 let TO_LOGIN = "toLoginView"
@@ -29,6 +30,10 @@ let USER_EMAIL = "userEmail"
 
 //Header
 let HEADER = ["Content-Type": "application/json; charset=utf-8"]
+let HEADER_BEARER = [
+    "Authorization":"Bearer \(AuthService.instance.autoToken)",
+    "Content-Type": "application/json; charset=utf-8"
+]
 
 //Colors
 let PLACEHOLDER_COLOR = #colorLiteral(red: 0.1984519475, green: 0.659694549, blue: 0.8852669373, alpha: 0.4)

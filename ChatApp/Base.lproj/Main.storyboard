@@ -266,7 +266,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCp-hj-42f">
                                         <rect key="frame" x="0.0" y="74" width="250" height="2"/>
@@ -289,6 +289,9 @@
                                 <state key="normal" title="Login">
                                     <color key="titleColor" red="0.96847915539999996" green="1" blue="0.99846337039999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginBtnPressed:" destination="XRM-wj-Kev" eventType="touchUpInside" id="3gj-i0-Amj"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAh-K8-rlt">
                                 <rect key="frame" x="88" y="344" width="199" height="26"/>
@@ -298,16 +301,22 @@
                                     <action selector="createAcctBtnPressed:" destination="XRM-wj-Kev" eventType="touchUpInside" id="OaA-bV-pti"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="9fN-6m-5ah">
+                                <rect key="frame" x="169" y="235" width="37" height="37"/>
+                                <color key="color" red="0.34192564590000002" green="0.51763289960000003" blue="0.88526693729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="TDS-qN-ASo" firstAttribute="top" secondItem="gjq-8T-cYI" secondAttribute="top" id="B7n-UO-crs"/>
                             <constraint firstItem="qJe-gU-Brg" firstAttribute="top" secondItem="5s3-Oh-N56" secondAttribute="bottom" constant="40" id="B9L-2E-d1M"/>
+                            <constraint firstItem="9fN-6m-5ah" firstAttribute="centerY" secondItem="ckZ-B0-kNX" secondAttribute="centerY" constant="-80" id="CFl-0S-N5S"/>
                             <constraint firstItem="nqc-Ag-wD5" firstAttribute="centerX" secondItem="ckZ-B0-kNX" secondAttribute="centerX" id="DYX-CM-7ff"/>
                             <constraint firstItem="qJe-gU-Brg" firstAttribute="centerX" secondItem="ckZ-B0-kNX" secondAttribute="centerX" id="DeC-GJ-heU"/>
                             <constraint firstItem="5s3-Oh-N56" firstAttribute="centerX" secondItem="ckZ-B0-kNX" secondAttribute="centerX" id="JFV-0X-It1"/>
                             <constraint firstItem="cAh-K8-rlt" firstAttribute="centerX" secondItem="ckZ-B0-kNX" secondAttribute="centerX" id="PyY-ty-8Oz"/>
                             <constraint firstItem="cAh-K8-rlt" firstAttribute="top" secondItem="nqc-Ag-wD5" secondAttribute="bottom" constant="8" id="Rsd-hV-k9E"/>
+                            <constraint firstItem="9fN-6m-5ah" firstAttribute="centerX" secondItem="ckZ-B0-kNX" secondAttribute="centerX" id="VMv-ZA-j9z"/>
                             <constraint firstItem="nqc-Ag-wD5" firstAttribute="top" secondItem="qJe-gU-Brg" secondAttribute="bottom" constant="40" id="b6M-is-yIC"/>
                             <constraint firstItem="5s3-Oh-N56" firstAttribute="top" secondItem="gjq-8T-cYI" secondAttribute="top" constant="70" id="dMu-gq-sGC"/>
                             <constraint firstItem="gjq-8T-cYI" firstAttribute="trailing" secondItem="TDS-qN-ASo" secondAttribute="trailing" constant="16" id="h7C-GJ-gxK"/>
@@ -315,6 +324,10 @@
                         <viewLayoutGuide key="safeArea" id="gjq-8T-cYI"/>
                     </view>
                     <connections>
+                        <outlet property="loginBtn" destination="nqc-Ag-wD5" id="yuz-ia-kOP"/>
+                        <outlet property="passwordTxt" destination="OER-hw-9Dm" id="Cid-Yd-JrA"/>
+                        <outlet property="spinner" destination="9fN-6m-5ah" id="mOo-sQ-BKb"/>
+                        <outlet property="usernameTxt" destination="wyF-A4-17x" id="xNj-of-1ex"/>
                         <segue destination="rBf-lX-Ecl" kind="show" identifier="toCreateAcctVC" id="WI3-ki-Qst"/>
                     </connections>
                 </viewController>
