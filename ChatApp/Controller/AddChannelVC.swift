@@ -21,7 +21,14 @@ class AddChannelVC: UIViewController {
     
     @IBAction func createChannelBtnPressed(_ sender: Any) {
         
+        guard let channelName = nameTxt.text , nameTxt.text != "" else { return }
+        guard let channelDescription = descriptionTxt.text else { return }
         
+        SocketService.instance.addChannel(channelName: channelName, channelDescription: channelDescription) { (success) in
+            if success {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
         
     }
 
@@ -43,7 +50,7 @@ class AddChannelVC: UIViewController {
     }
     
     @objc func closeTap(_ recognizer: UITapGestureRecognizer){
-        dismiss(animated: true, completion: nil)
+        view.endEditing(true)
     }
 
 }

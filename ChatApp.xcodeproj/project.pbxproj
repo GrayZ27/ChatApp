@@ -27,9 +27,11 @@
 		0657573C1F99213300F89D18 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0657573B1F99213300F89D18 /* Constants.swift */; };
 		0657573E1F993ACB00F89D18 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0657573D1F993ACB00F89D18 /* LoginVC.swift */; };
 		065757401F995E8B00F89D18 /* CreateAcctVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0657573F1F995E8B00F89D18 /* CreateAcctVC.swift */; };
-		06D9D56A1FA0FC6F001A2C46 /* circleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9D5691FA0FC6F001A2C46 /* circleImage.swift */; };
+		06D9D56A1FA0FC6F001A2C46 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9D5691FA0FC6F001A2C46 /* CircleImage.swift */; };
 		06D9D56D1FA141E6001A2C46 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D9D56B1FA141E5001A2C46 /* ProfileVC.swift */; };
 		06D9D56E1FA141E6001A2C46 /* ProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06D9D56C1FA141E6001A2C46 /* ProfileVC.xib */; };
+		06F439B81FAE423600404A88 /* SocketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F439B71FAE423600404A88 /* SocketService.swift */; };
+		06F439BA1FAE519F00404A88 /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F439B91FAE519F00404A88 /* ChannelCell.swift */; };
 		4C9D34EC6FB8C43199F826CB /* Pods_ChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B133A7D9D15ABF282C97F3B1 /* Pods_ChatApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,9 +60,11 @@
 		0657573B1F99213300F89D18 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0657573D1F993ACB00F89D18 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0657573F1F995E8B00F89D18 /* CreateAcctVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAcctVC.swift; sourceTree = "<group>"; };
-		06D9D5691FA0FC6F001A2C46 /* circleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = circleImage.swift; sourceTree = "<group>"; };
+		06D9D5691FA0FC6F001A2C46 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		06D9D56B1FA141E5001A2C46 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		06D9D56C1FA141E6001A2C46 /* ProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileVC.xib; sourceTree = "<group>"; };
+		06F439B71FAE423600404A88 /* SocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketService.swift; sourceTree = "<group>"; };
+		06F439B91FAE519F00404A88 /* ChannelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelCell.swift; sourceTree = "<group>"; };
 		1DA9DAC634D043E31FF923DC /* Pods-ChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.release.xcconfig"; sourceTree = "<group>"; };
 		B133A7D9D15ABF282C97F3B1 /* Pods_ChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B54FE7498515DD2158EDEAB6 /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,7 +158,8 @@
 				060ACE891F91278D0009E5BF /* GradientView.swift */,
 				061A97601F9D1130004720AA /* RoundedButton.swift */,
 				062783451F9FFBE3000F7BDE /* AvatarCell.swift */,
-				06D9D5691FA0FC6F001A2C46 /* circleImage.swift */,
+				06D9D5691FA0FC6F001A2C46 /* CircleImage.swift */,
+				06F439B91FAE519F00404A88 /* ChannelCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 				0612F1391F9AB0C200CA973D /* AuthService.swift */,
 				061A97621F9D23AC004720AA /* UserDataService.swift */,
 				060B54041FA27777007027C0 /* MessageService.swift */,
+				06F439B71FAE423600404A88 /* SocketService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -303,7 +309,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		FD76FE714618C9DCEB31EE1E /* [CP] Embed Pods Frameworks */ = {
@@ -336,7 +342,8 @@
 				060ACE871F8FF2140009E5BF /* ChannelVC.swift in Sources */,
 				060B54051FA27777007027C0 /* MessageService.swift in Sources */,
 				061A97631F9D23AC004720AA /* UserDataService.swift in Sources */,
-				06D9D56A1FA0FC6F001A2C46 /* circleImage.swift in Sources */,
+				06D9D56A1FA0FC6F001A2C46 /* CircleImage.swift in Sources */,
+				06F439BA1FAE519F00404A88 /* ChannelCell.swift in Sources */,
 				0657573E1F993ACB00F89D18 /* LoginVC.swift in Sources */,
 				0612F13A1F9AB0C200CA973D /* AuthService.swift in Sources */,
 				060ACE8A1F91278E0009E5BF /* GradientView.swift in Sources */,
@@ -346,6 +353,7 @@
 				065757401F995E8B00F89D18 /* CreateAcctVC.swift in Sources */,
 				060ACE881F8FF91E0009E5BF /* SWRevealViewController.m in Sources */,
 				0657573C1F99213300F89D18 /* Constants.swift in Sources */,
+				06F439B81FAE423600404A88 /* SocketService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,7 @@ class ChatVC: UIViewController {
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         
+        
         if AuthService.instance.isLoggedIn {
             AuthService.instance.findUserByEmail(completion: { (success) in
                 if success {
@@ -29,9 +30,7 @@ class ChatVC: UIViewController {
         }
         
         MessageService.instance.findAllChannels { (success) in
-            
-            
-            
+            //find all channel in database
         }
         
     }
