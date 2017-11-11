@@ -15,6 +15,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var channelNameLbl: UILabel!
     @IBOutlet weak var messageTxtBox: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var sendBtn: UIButton!
     
     //IBAction
     @IBAction func sentMsgBtnPressed(_ sender: Any) {
@@ -39,10 +40,9 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 80
+        tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        view.bindToKeyboard()
         let tap = UITapGestureRecognizer(target: self, action: #selector(ChatVC.handleTap))
         view.addGestureRecognizer(tap)
         menuBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
@@ -50,8 +50,9 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.userDataDidChanged(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.channelChanged(_:)), name: NOTIF_CHANNEL_SELECTED, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         if AuthService.instance.isLoggedIn {
             AuthService.instance.findUserByEmail(completion: { (success) in
@@ -78,6 +79,27 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @objc func handleTap() {
         view.endEditing(true)
+    }
+    
+    //changed table view and textfield positions when keyboard shows up
+    @objc func keyboardWillShow(notification: NSNotification) {
+
+        let info = notification.userInfo!
+        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+
+        messageTxtBox.frame.origin.y = -(keyboardFrame.size.height)
+        sendBtn.frame.origin.y = -(keyboardFrame.size.height - 5)
+        
+        let originFrame = self.tableView.frame
+        let newHeight: CGFloat = originFrame.size.height - keyboardFrame.size.height
+        self.tableView.frame = CGRect(x: originFrame.origin.x, y: originFrame.origin.y, width: originFrame.size.width, height: newHeight)
+        
+    }
+    
+    //reset when keyboard disappears
+    @objc func keyboardWillHide(notification: NSNotification) {
+        messageTxtBox.frame.origin.y = 0
+        sendBtn.frame.origin.y = 5
     }
     
     func updateWithChannelSelected() {
