@@ -38,19 +38,20 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.channelChanged(_:)), name: NOTIF_CHANNEL_SELECTED, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.keyboardWillChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
-        SocketService.instance.getMessage { (success) in
-            if success {
-                self.tableView.reloadData()
-                self.scrollMessageOnTableView()
-            }
-        }
-        
         if AuthService.instance.isLoggedIn {
             AuthService.instance.findUserByEmail(completion: { (success) in
                 if success {
                     NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
                 }
             })
+        }
+        
+        SocketService.instance.getChatMessage { (newMessage) in
+            if newMessage.channelId == MessageService.instance.selectedChannel?.id && AuthService.instance.isLoggedIn {
+                MessageService.instance.messages.append(newMessage)
+                self.tableView.reloadData()
+                self.scrollMessageOnTableView()
+            }
         }
         
         SocketService.instance.getTypingUsers { (typingUsers) in
