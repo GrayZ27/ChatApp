@@ -18,24 +18,9 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var typingUserLbl: UILabel!
     
-    //IBAction
-    @IBAction func sentMsgBtnPressed(_ sender: Any) {
-        
-        if AuthService.instance.isLoggedIn {
-        
-            guard let channelId = MessageService.instance.selectedChannel?.id else { return }
-            guard let message = messageTxtBox.text else { return }
-            
-            SocketService.instance.addMessage(messageBody: message, userId: UserDataService.instance.id, channelId: channelId, completion: { (success) in
-                if success {
-                    self.messageTxtBox.text = ""
-                    self.messageTxtBox.resignFirstResponder()
-                }
-            })
-        }
-        
-    }
-    
+    //variable
+    var isTyping = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         messageTxtBox.delegate = self
@@ -51,8 +36,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.userDataDidChanged(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.channelChanged(_:)), name: NOTIF_CHANNEL_SELECTED, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.keyboardWillChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
         SocketService.instance.getMessage { (success) in
             if success {
@@ -68,8 +52,39 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                 }
             })
         }
+        
+        SocketService.instance.getTypingUsers { (typingUsers) in
+            
+            guard let channelId = MessageService.instance.selectedChannel?.id else { return }
+            var names = ""
+            var numberOfTypers = 0
+            
+            for (typingUser, channel) in typingUsers {
+                if channel == channelId && typingUser != UserDataService.instance.name {
+                    if names == "" {
+                        names = typingUser
+                    }else {
+                        names = "\(names), \(typingUser)"
+                    }
+                    numberOfTypers += 1
+                }
+            }
+            
+            if numberOfTypers > 0 && AuthService.instance.isLoggedIn {
+                var verb = "is"
+                if numberOfTypers > 1 {
+                    verb = "are"
+                }
+                self.typingUserLbl.text = "\(names) \(verb) typing now"
+            }else {
+                self.typingUserLbl.text = ""
+            }
+            
+        }
+        
     }
   
+    //functions for NotificationCenter #selector -------------------------------------------------------------
     @objc func userDataDidChanged(_ notif: Notification) {
         
         if AuthService.instance.isLoggedIn {
@@ -85,38 +100,38 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         updateWithChannelSelected()
     }
     
+    @objc func keyboardWillChange(_ notification: Notification) {
+        
+        let userInfo = notification.userInfo!
+        let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! Double
+        let curve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! UInt
+        let curFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let targetFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let deltaY = targetFrame.origin.y - curFrame.origin.y
+        
+        UIView.animateKeyframes(withDuration: duration, delay: 0.0, options: UIViewKeyframeAnimationOptions(rawValue: curve), animations: {
+            self.view.frame.origin.y += deltaY
+        }) { (success) in
+            if success {
+                self.view.layoutIfNeeded()
+            }
+        }
+        
+    }
+    //functions for NotificationCenter #selector -------------------------------------------------------------
+    
+    //functions for dismiss the keyboard----------------------------------
     @objc func handleTap() {
         view.endEditing(true)
     }
     
-    //changed table view and textfield positions when keyboard shows up
-    @objc func keyboardWillShow(notification: NSNotification) {
-        
-        let info = notification.userInfo!
-        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-
-        let keyboardFrameHeight = keyboardFrame.size.height
-        messageTxtBox.frame.origin.y = -(keyboardFrameHeight)
-        sendBtn.frame.origin.y = -(keyboardFrameHeight - 5)
-        let originFrame = self.tableView.frame
-        let newHeight: CGFloat = originFrame.size.height - keyboardFrameHeight
-        self.tableView.frame = CGRect(x: originFrame.origin.x, y: originFrame.origin.y, width: originFrame.size.width, height: newHeight)
-        scrollMessageOnTableView()
-        
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        sendMessageOut()
+        view.endEditing(true)
+        return true
     }
-    
-    //reset when keyboard disappears
-    @objc func keyboardWillHide(notification: NSNotification) {
-        messageTxtBox.frame.origin.y = 0
-        sendBtn.frame.origin.y = 5
-    }
-    
-    func scrollMessageOnTableView() {
-        if MessageService.instance.messages.count > 0 {
-            let endIndex = IndexPath(row: MessageService.instance.messages.count - 1, section: 0)
-            self.tableView.scrollToRow(at: endIndex, at: .bottom, animated: false)
-        }
-    }
+    //functions for dismiss the keyboard----------------------------------
+   
     
     func updateWithChannelSelected() {
         let channelName = MessageService.instance.selectedChannel?.channelTitle ?? ""
@@ -151,7 +166,23 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         
     }
     
-    //table view functions
+    func sendMessageOut() {
+        if AuthService.instance.isLoggedIn {
+            
+            guard let channelId = MessageService.instance.selectedChannel?.id else { return }
+            guard let message = messageTxtBox.text else { return }
+            
+            SocketService.instance.addMessage(messageBody: message, userId: UserDataService.instance.id, channelId: channelId, completion: { (success) in
+                if success {
+                    self.messageTxtBox.text = ""
+                    self.messageTxtBox.resignFirstResponder()
+                    SocketService.instance.socket.emit("stopType", UserDataService.instance.name, channelId)
+                }
+            })
+        }
+    }
+    
+    //table view functions----------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MessageService.instance.messages.count
     }
@@ -180,18 +211,34 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
+    func scrollMessageOnTableView() {
+        if MessageService.instance.messages.count > 0 {
+            let endIndex = IndexPath(row: MessageService.instance.messages.count - 1, section: 0)
+            self.tableView.scrollToRow(at: endIndex, at: .bottom, animated: false)
+        }
+    }
+    //table view functions----------------------------------------------------------------------------------------------------
+    
+    //IBAction
+    @IBAction func sentMsgBtnPressed(_ sender: Any) {
+        sendMessageOut()
+    }
+    
+    @IBAction func messageBoxEditing(_ sender: Any) {
+        
+        guard let channelId = MessageService.instance.selectedChannel?.id else { return }
+        
+        if messageTxtBox.text == "" {
+            isTyping = false
+            SocketService.instance.socket.emit("stopType", UserDataService.instance.name, channelId)
+        }else {
+            if isTyping == false {
+                SocketService.instance.socket.emit("startType", UserDataService.instance.name, channelId)
+            }
+            isTyping = true
+        }
+        
+    }
+    
 }
