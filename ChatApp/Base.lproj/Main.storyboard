@@ -80,7 +80,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3jO-fG-WdV">
-                                <rect key="frame" x="0.0" y="77" width="375" height="525"/>
+                                <rect key="frame" x="0.0" y="77" width="375" height="550"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" rowHeight="90" id="yHw-fS-7nR" customClass="MessageCell" customModule="ChatApp" customModuleProvider="target">
@@ -99,13 +99,13 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnJ-qc-hdz" customClass="RoundLabel" customModule="ChatApp" customModuleProvider="target">
                                                     <rect key="frame" x="152.5" y="9" width="70" height="18"/>
-                                                    <color key="backgroundColor" red="0.87571007013320923" green="0.87571007013320923" blue="0.87571007013320923" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.8178646503" green="0.82071136410000001" blue="0.82548402310000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="4W4-mA-7s4"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="6vP-1z-SXi"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Body" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlG-wp-mS9" customClass="RoundLabel" customModule="ChatApp" customModuleProvider="target">
@@ -165,13 +165,13 @@
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVx-IG-xzk" customClass="RoundLabel" customModule="ChatApp" customModuleProvider="target">
                                                     <rect key="frame" x="152.5" y="9" width="70" height="18"/>
-                                                    <color key="backgroundColor" red="0.87571007010000002" green="0.87571007010000002" blue="0.87571007010000002" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.81786465034455391" green="0.82071136405583578" blue="0.82548402314568525" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="ChR-Cl-MOR"/>
                                                         <constraint firstAttribute="height" constant="18" id="rZZ-Ne-0E0"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Body" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gnc-vZ-UIv" customClass="RoundLabel" customModule="ChatApp" customModuleProvider="target">
@@ -225,7 +225,7 @@
                                         </constraints>
                                         <state key="normal" image="send"/>
                                         <connections>
-                                            <action selector="sentMsgBtnPressed:" destination="hj1-AP-xz9" eventType="touchUpInside" id="L0g-ZY-EPb"/>
+                                            <action selector="sentMsgBtnPressed:" destination="hj1-AP-xz9" eventType="touchUpInside" id="RyE-2G-mkB"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -239,14 +239,22 @@
                                     <constraint firstItem="Pka-xu-Oha" firstAttribute="leading" secondItem="qDV-44-G3G" secondAttribute="leading" constant="1" id="yXN-H7-BZk"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIp-sj-kkW">
+                                <rect key="frame" x="8" y="622" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="IIp-sj-kkW" firstAttribute="leading" secondItem="d1o-3d-cle" secondAttribute="leading" constant="8" id="6fE-WU-HZi"/>
                             <constraint firstItem="qDV-44-G3G" firstAttribute="trailing" secondItem="d1o-3d-cle" secondAttribute="trailing" id="Jsv-Yu-5gV"/>
+                            <constraint firstItem="qDV-44-G3G" firstAttribute="top" secondItem="IIp-sj-kkW" secondAttribute="bottom" constant="5" id="N1x-uT-dQW"/>
                             <constraint firstItem="vt6-r0-hL0" firstAttribute="leading" secondItem="d1o-3d-cle" secondAttribute="leading" id="Ocp-Y0-WDs"/>
                             <constraint firstItem="vt6-r0-hL0" firstAttribute="trailing" secondItem="d1o-3d-cle" secondAttribute="trailing" id="T8Y-2K-CCW"/>
                             <constraint firstItem="qDV-44-G3G" firstAttribute="bottom" secondItem="d1o-3d-cle" secondAttribute="bottom" id="TAZ-ka-F4O"/>
-                            <constraint firstItem="qDV-44-G3G" firstAttribute="top" secondItem="3jO-fG-WdV" secondAttribute="bottom" constant="25" id="Vvs-31-Avn"/>
+                            <constraint firstItem="qDV-44-G3G" firstAttribute="top" secondItem="3jO-fG-WdV" secondAttribute="bottom" id="Vvs-31-Avn"/>
                             <constraint firstItem="vt6-r0-hL0" firstAttribute="top" secondItem="ip6-dh-RYf" secondAttribute="top" id="gPT-gH-G3X"/>
                             <constraint firstItem="3jO-fG-WdV" firstAttribute="top" secondItem="vt6-r0-hL0" secondAttribute="bottom" id="gxN-bb-YjR"/>
                             <constraint firstItem="3jO-fG-WdV" firstAttribute="trailing" secondItem="d1o-3d-cle" secondAttribute="trailing" id="ks9-D0-jnv"/>
@@ -261,6 +269,7 @@
                         <outlet property="messageTxtBox" destination="Pka-xu-Oha" id="ydU-xf-SFt"/>
                         <outlet property="sendBtn" destination="5Nc-vz-X8U" id="I3A-RB-G6H"/>
                         <outlet property="tableView" destination="3jO-fG-WdV" id="ITd-RW-oSi"/>
+                        <outlet property="typingUserLbl" destination="IIp-sj-kkW" id="g6F-uM-0WR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d89-zQ-5bY" userLabel="First Responder" sceneMemberID="firstResponder"/>

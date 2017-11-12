@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     //IBOutlets
     @IBOutlet weak var menuBtn: UIButton!
@@ -16,6 +16,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var messageTxtBox: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sendBtn: UIButton!
+    @IBOutlet weak var typingUserLbl: UILabel!
     
     //IBAction
     @IBAction func sentMsgBtnPressed(_ sender: Any) {
@@ -37,12 +38,11 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        messageTxtBox.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableViewAutomaticDimension
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(ChatVC.handleTap))
         view.addGestureRecognizer(tap)
         menuBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
@@ -54,6 +54,13 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
+        SocketService.instance.getMessage { (success) in
+            if success {
+                self.tableView.reloadData()
+                self.scrollMessageOnTableView()
+            }
+        }
+        
         if AuthService.instance.isLoggedIn {
             AuthService.instance.findUserByEmail(completion: { (success) in
                 if success {
@@ -62,13 +69,14 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             })
         }
     }
-    
+  
     @objc func userDataDidChanged(_ notif: Notification) {
         
         if AuthService.instance.isLoggedIn {
             onLoginGetMessage()
         }else {
             channelNameLbl.text = "Please Login"
+            tableView.reloadData()
         }
         
     }
@@ -83,16 +91,17 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //changed table view and textfield positions when keyboard shows up
     @objc func keyboardWillShow(notification: NSNotification) {
-
+        
         let info = notification.userInfo!
         let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
 
-        messageTxtBox.frame.origin.y = -(keyboardFrame.size.height)
-        sendBtn.frame.origin.y = -(keyboardFrame.size.height - 5)
-        
+        let keyboardFrameHeight = keyboardFrame.size.height
+        messageTxtBox.frame.origin.y = -(keyboardFrameHeight)
+        sendBtn.frame.origin.y = -(keyboardFrameHeight - 5)
         let originFrame = self.tableView.frame
-        let newHeight: CGFloat = originFrame.size.height - keyboardFrame.size.height
+        let newHeight: CGFloat = originFrame.size.height - keyboardFrameHeight
         self.tableView.frame = CGRect(x: originFrame.origin.x, y: originFrame.origin.y, width: originFrame.size.width, height: newHeight)
+        scrollMessageOnTableView()
         
     }
     
@@ -100,6 +109,13 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @objc func keyboardWillHide(notification: NSNotification) {
         messageTxtBox.frame.origin.y = 0
         sendBtn.frame.origin.y = 5
+    }
+    
+    func scrollMessageOnTableView() {
+        if MessageService.instance.messages.count > 0 {
+            let endIndex = IndexPath(row: MessageService.instance.messages.count - 1, section: 0)
+            self.tableView.scrollToRow(at: endIndex, at: .bottom, animated: false)
+        }
     }
     
     func updateWithChannelSelected() {
@@ -129,6 +145,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         MessageService.instance.findAllMessageForChannel(channelId: channelId) { (success) in
             if success {
                 self.tableView.reloadData()
+                self.scrollMessageOnTableView()
             }
         }
         
